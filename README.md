@@ -82,4 +82,5 @@ See also [golang/winstrap](https://github.com/golang/winstrap) and
 [golang/wiki/WindowsBuild](https://github.com/golang/go/wiki/WindowsBuild)
 for more information of how to set up a general Go build environment on Windows
 with MinGW.
+test
 
