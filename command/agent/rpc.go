@@ -177,9 +177,9 @@ type AgentBackend interface {
 	Shutdown() error
 	Stats() map[string]map[string]string
 	ListKeys(string) (*structs.KeyringResponses, error)
-	InstallKey(string, string) (*structs.KeyringResponses, error)
-	UseKey(string, string) (*structs.KeyringResponses, error)
-	RemoveKey(string, string) (*structs.KeyringResponses, error)
+	InstallKey(string, string, uint8) (*structs.KeyringResponses, error)
+	UseKey(string, string, uint8) (*structs.KeyringResponses, error)
+	RemoveKey(string, string, uint8) (*structs.KeyringResponses, error)
 }
 
 type AgentRPC struct {
@@ -624,7 +624,7 @@ func (i *AgentRPC) handleKeyring(client *rpcClient, seq uint64, cmd, token strin
 		return fmt.Errorf("decode failed: %v", err)
 	}
 
-	i.agent.logger.Printf("[INFO] agent: Sending rpc command with relay factor %d", req.RelayFactor)
+	i.agent.log("[INFO] agent: Sending rpc command with relay factor %d", req.RelayFactor)
 
 	switch cmd {
 	case listKeysCommand:
