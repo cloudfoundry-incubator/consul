@@ -176,10 +176,11 @@ type AgentBackend interface {
 	Leave() error
 	Shutdown() error
 	Stats() map[string]map[string]string
-	ListKeys(string) (*structs.KeyringResponses, error)
+	ListKeys(string, uint8) (*structs.KeyringResponses, error)
 	InstallKey(string, string, uint8) (*structs.KeyringResponses, error)
 	UseKey(string, string, uint8) (*structs.KeyringResponses, error)
 	RemoveKey(string, string, uint8) (*structs.KeyringResponses, error)
+	log(string, ...interface{})
 }
 
 type AgentRPC struct {
@@ -235,7 +236,7 @@ func (c *rpcClient) String() string {
 
 // NewAgentRPC is used to create a new Agent RPC handler
 func NewAgentRPC(agent AgentBackend, listener net.Listener,
-	logOutput io.Writer, logWriter *logWriter) *AgentRPC {
+	logOutput io.Writer, logWriter *logger.LogWriter) *AgentRPC {
 	if logOutput == nil {
 		logOutput = os.Stderr
 	}
