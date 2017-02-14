@@ -285,7 +285,7 @@ func Create(config *Config, logOutput io.Writer, logWriter *logger.LogWriter,
 }
 
 // Expose logger.Printf as a method on Agent and AgentBackend
-func (a *Agent) log(format string, v ...interface{}) {
+func (a *Agent) Log(format string, v ...interface{}) {
 	a.logger.Printf(format, v...)
 }
 
